@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { IconComponent } from './icon-button';
+import { IconButtonComponent } from './icon-button';
+import { IconButtonCssComponent } from './icon-button-css/icon-button-css.component';
 
 
 @NgModule({
-  declarations: [AppComponent, IconComponent],
+  declarations: [AppComponent, IconButtonComponent, IconButtonCssComponent],
   imports: [BrowserModule],
   providers: [],
   bootstrap: [AppComponent],

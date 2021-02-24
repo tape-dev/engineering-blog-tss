@@ -1,0 +1,19 @@
+
+.icon {
+    width: 50px;
+    width: 50px;
+    fill: #0071BB;
+}
+
+.icon-active:hover {
+    fill: #004674;
+}
+
+.icon-disabled {
+    opacity: 0.5;
+    cursor: initial
+}
+
+.icon-disabled:hover {
+    fill: #0071BB
+}
