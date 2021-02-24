@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+/** Button reset */
+button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    outline: inherit;
+    padding: 0;
+    margin: 0;
+    text-align: inherit;
+  }
