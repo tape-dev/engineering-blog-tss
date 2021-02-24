@@ -1,23 +1,40 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { css } from '@emotion/css';
-import {iconSVG} from './icon-svg'
+import { bookmarkFilledSVG, bookmarkSVG } from './icon-svg';
+
+const colors = {
+  primary: '#0071BB',
+} as const;
+
+const ICON_BUTTON_SIZE = '50px';
 
 @Component({
   selector: 'engineering-blog-tss-icon-button',
   template: `
-  <button>
+  <button [disabled]="disabled">
     <div [class]="iconClass" [innerHTML]="svg"></div>
   </button>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IconComponent  {
-    constructor(private sanitizer: DomSanitizer) { }
+export class IconComponent {
+  constructor(private sanitizer: DomSanitizer) {}
 
   @Input() active: boolean;
   @Input() disabled: boolean;
 
-  iconClass = css({width: '100px', height: '100px'})
+  get iconClass() {
+    return css({
+      width: ICON_BUTTON_SIZE,
+      height: ICON_BUTTON_SIZE,
+      fill: colors.primary,
+      opacity: this.disabled ? 0.5 : undefined,
+      cursor: this.disabled ? 'initial' : 'pointer',
+    })
+  }
 
-  readonly svg = this.sanitizer.bypassSecurityTrustHtml(iconSVG);
+  get svg() {
+    const svg = this.active ? bookmarkFilledSVG : bookmarkSVG;
+    return this.sanitizer.bypassSecurityTrustHtml(svg);
+  }
 }
