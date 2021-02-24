@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "engineering-blog-tss-demo",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
+  "projects": {
+    "engineering-blog-tss-demo": {
+      "projectType": "application",
+      "root": "apps/engineering-blog-tss-demo",
+      "sourceRoot": "apps/engineering-blog-tss-demo/src",
+      "prefix": "engineering-blog-tss",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/engineering-blog-tss-demo",
+            "index": "apps/engineering-blog-tss-demo/src/index.html",
+            "main": "apps/engineering-blog-tss-demo/src/main.ts",
+            "polyfills": "apps/engineering-blog-tss-demo/src/polyfills.ts",
+            "tsConfig": "apps/engineering-blog-tss-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/engineering-blog-tss-demo/src/favicon.ico",
+              "apps/engineering-blog-tss-demo/src/assets"
+            ],
+            "styles": ["apps/engineering-blog-tss-demo/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/engineering-blog-tss-demo/src/environments/environment.ts",
+                  "with": "apps/engineering-blog-tss-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "engineering-blog-tss-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "engineering-blog-tss-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "engineering-blog-tss-demo:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/engineering-blog-tss-demo/src/**/*.ts",
+              "apps/engineering-blog-tss-demo/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/engineering-blog-tss-demo"],
+          "options": {
+            "jestConfig": "apps/engineering-blog-tss-demo/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "engineering-blog-tss-demo-e2e": {
+      "root": "apps/engineering-blog-tss-demo-e2e",
+      "sourceRoot": "apps/engineering-blog-tss-demo-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/engineering-blog-tss-demo-e2e/cypress.json",
+            "tsConfig": "apps/engineering-blog-tss-demo-e2e/tsconfig.e2e.json",
+            "devServerTarget": "engineering-blog-tss-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "engineering-blog-tss-demo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/engineering-blog-tss-demo-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
